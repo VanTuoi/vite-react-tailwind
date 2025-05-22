@@ -6,8 +6,6 @@
     },
     "login": "Login",
     "logout": "Logout",
-    "account": "Account",
-    "settings": "Settings",
     "theme": "Theme",
     "language": "Language"
   },
@@ -22,21 +20,6 @@
       "20": "20"
     }
   },
-  "filter": {
-    "categories": "All categories",
-    "all": "All",
-    "price": "Price range",
-    "start": "Minimum rating",
-    "submit": "Apply",
-    "reset": "Reset",
-    "hide_filter": "Hide filter",
-    "show_filter": "Show filter",
-    "price_from": "From",
-    "price_to": "To",
-    "price_to_mobile": "to",
-    "error_price_non_negative": "Price must be greater than or equal to 0",
-    "error_price_range": "Price does not match (maximum price must be greater than or equal to minimum price)"
-  },
   "empty_state": {
     "no_courses": "No courses found.",
     "view_all": "View all courses"
@@ -45,15 +28,9 @@
     "sort_by": "Sort by",
     "field": "Sort field",
     "order": "Order",
-    "order_placeholder": "Order",
     "asc": "Ascending",
     "desc": "Descending",
     "name": "Name",
-    "year": "School year",
-    "rating": "Rating",
-    "created_at": "Latest",
-    "view": "Views",
-    "sold": "Best seller",
-    "price": "Price"
+    "created_at": "Latest"
   }
 }

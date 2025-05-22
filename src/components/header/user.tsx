@@ -1,4 +1,4 @@
-import { Languages, LogOutIcon, Settings, SunMoon, UserCircleIcon } from 'lucide-react'
+import { Languages, LogOutIcon, SunMoon } from 'lucide-react'
 import { useContext } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router-dom'
@@ -64,14 +64,6 @@ export const User = () => {
                 </DropdownMenuLabel>
                 <DropdownMenuSeparator />
                 <DropdownMenuGroup>
-                    <DropdownMenuItem>
-                        <UserCircleIcon className='mr-2 size-4' />
-                        {t('header.account')}
-                    </DropdownMenuItem>
-                    <DropdownMenuItem>
-                        <Settings className='mr-2 size-4' />
-                        {t('header.settings')}
-                    </DropdownMenuItem>
                     <DropdownMenuItem className='justify-between'>
                         <div className='flex items-center gap-4'>
                             <SunMoon className='size-4' />

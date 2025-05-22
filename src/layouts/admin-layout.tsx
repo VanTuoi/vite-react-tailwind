@@ -1,6 +1,8 @@
-import { AppSidebar, SidebarProvider, SidebarTrigger } from '~/components/ui'
+import type { ReactNode } from 'react'
+import { AppSidebar } from '~/components/layout'
+import { SidebarProvider, SidebarTrigger } from '~/components/ui'
 
-export function AdminLayout({ children }: { children: React.ReactNode }) {
+export function AdminLayout({ children }: { children: ReactNode }) {
     return (
         <SidebarProvider>
             <AppSidebar />

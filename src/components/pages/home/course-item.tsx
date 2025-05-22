@@ -1,8 +1,6 @@
 import type { Course } from '~/types'
-import { formatPrice } from '~/utils'
 
 import { Link, useNavigate } from 'react-router-dom'
-import { Rating } from './rating'
 
 export const CourseItem = ({ course }: { course: Course }) => {
     const navigate = useNavigate()
@@ -22,25 +20,6 @@ export const CourseItem = ({ course }: { course: Course }) => {
                 <Link to={`/${course.id}`} className='text-lg font-semibold'>
                     {course.name}
                 </Link>
-                <Rating size={15} value={Number(course?.rating)} />
-                <div className='flex flex-row items-center gap-2'>
-                    {course.price_before_discount ? (
-                        <>
-                            <p className='text-lg font-semibold text-red-600 sm:text-xl'>
-                                {formatPrice(course.price, 'vi')}
-                            </p>
-                            <p className='sm:text-md text-sm font-semibold line-through'>
-                                {formatPrice(course.price_before_discount, 'vi')}
-                            </p>
-                        </>
-                    ) : (
-                        <p className='text-lg font-semibold sm:text-xl'>{formatPrice(course.price, 'vi')}</p>
-                    )}
-                </div>
-
-                <p className='py-1 text-xs text-gray-400 sm:py-2'>
-                    Mã: {course.course_code} - {course.category?.name} - {course.year}
-                </p>
             </div>
         </div>
     )

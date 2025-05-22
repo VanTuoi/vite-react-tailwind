@@ -1,4 +1,3 @@
-import dayjs from 'dayjs'
 import { ArrowDown, ArrowUp, Pencil, Trash2 } from 'lucide-react'
 import { useState } from 'react'
 import toast from 'react-hot-toast'
@@ -98,24 +97,6 @@ const CoursePage = () => {
                         >
                             Mã {renderSortIcon('course_code')}
                         </TableHead>
-                        <TableHead className='w-[10%] cursor-pointer text-center' onClick={() => handleSort('credit')}>
-                            Tín chỉ {renderSortIcon('credit')}
-                        </TableHead>
-                        <TableHead className='w-[10%] cursor-pointer text-center' onClick={() => handleSort('price')}>
-                            Giá {renderSortIcon('price')}
-                        </TableHead>
-                        <TableHead
-                            className='w-[15%] cursor-pointer text-center'
-                            onClick={() => handleSort('created_at')}
-                        >
-                            Ngày tạo {renderSortIcon('created_at')}
-                        </TableHead>
-                        <TableHead
-                            className='w-[15%] cursor-pointer text-center'
-                            onClick={() => handleSort('updated_at')}
-                        >
-                            Ngày cập nhật {renderSortIcon('updated_at')}
-                        </TableHead>
                         <TableHead className='w-[10%] text-center'>Hành động</TableHead>
                     </TableRow>
                 </TableHeader>
@@ -130,15 +111,7 @@ const CoursePage = () => {
                                     <TableCell className='truncate text-center' title={course.name}>
                                         {course.name}
                                     </TableCell>
-                                    <TableCell className='text-center'>{course.course_code}</TableCell>
-                                    <TableCell className='text-center'>{course.credit}</TableCell>
-                                    <TableCell className='text-center'>{course.price}</TableCell>
-                                    <TableCell className='text-center'>
-                                        {dayjs(course.created_at).format('HH:mm DD/MM/YYYY')}
-                                    </TableCell>
-                                    <TableCell className='text-center'>
-                                        {dayjs(course.updated_at).format('HH:mm DD/MM/YYYY')}
-                                    </TableCell>
+                                    <TableCell className='text-center'>{course.id}</TableCell>
                                     <TableCell className='flex items-center justify-center gap-2 text-center'>
                                         <Button
                                             variant='ghost'

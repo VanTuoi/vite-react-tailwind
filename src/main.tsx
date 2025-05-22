@@ -3,7 +3,7 @@ import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import { BrowserRouter } from 'react-router-dom'
 import App from './App'
-import { AppProvider } from './contexts/app.context'
+import { AppProvider } from './contexts'
 import './i18n/i18n'
 import './index.css'
 

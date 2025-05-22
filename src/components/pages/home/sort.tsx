@@ -15,12 +15,7 @@ export const Sort = ({ queryConfig }: Props) => {
 
     const sortOptions = [
         { label: t('sort.name'), value: 'name' },
-        { label: t('sort.year'), value: 'year' },
-        { label: t('sort.rating'), value: 'rating' },
-        { label: t('sort.created_at'), value: 'created_at' },
-        { label: t('sort.view'), value: 'view' },
-        { label: t('sort.sold'), value: 'sold' },
-        { label: t('sort.price'), value: 'price' }
+        { label: t('sort.created_at'), value: 'created_at' }
     ]
 
     const handleSortByChange = (sort_by: string) => {

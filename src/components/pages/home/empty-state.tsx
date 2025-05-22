@@ -8,7 +8,7 @@ export const EmptyState = () => {
     const { t } = useTranslation('home')
 
     return (
-        <div className='col-span-full py-20 text-center'>
+        <div className='col-span-full py-20 text-center min-h-screen'>
             <p className='text-lg text-gray-600'>{t('empty_state.no_courses')}</p>
             <Button variant='ghost' className='mt-4 text-primary' onClick={() => navigate(path.home)}>
                 {t('empty_state.view_all')}

@@ -1,8 +1,8 @@
 import { useContext, useEffect } from 'react'
 import { Toaster } from 'react-hot-toast'
-import { AppContext } from './contexts/app.context'
+import { AppContext } from './contexts'
 import useRouteElements from './use-route-elements'
-import { LocalStorageEventTarget } from './utils/auth'
+import { LocalStorageEventTarget } from './utils'
 
 const App = () => {
     const routeElements = useRouteElements()

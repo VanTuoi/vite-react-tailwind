@@ -71,7 +71,7 @@ export const Pagination = ({ path = '/', queryConfig, pageSize = 1 }: Props) => 
                         className={cn(
                             'mx-1 px-3 py-1 border-primary',
                             pageNumber === page
-                                ? 'border-primary bg-primary hover:bg-primary/80 text-white'
+                                ? 'border-primary bg-primary hover:bg-primary/90 text-white hover:text-white'
                                 : 'border-transparent hover:bg-primary/10 '
                         )}
                         onClick={() => navigate(href)}

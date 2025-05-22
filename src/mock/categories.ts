@@ -14,36 +14,6 @@ export const categoriesData: Category[] = [
         name: 'JavaScript',
         created_at: '2025-05-20T03:15:39.000000Z',
         updated_at: '2025-05-20T03:15:39.000000Z'
-    },
-    {
-        id: '1ecadd5f-4db0-44e2-be3c-31917998d9ac',
-        name: 'ReactJS',
-        created_at: '2025-05-20T03:15:39.000000Z',
-        updated_at: '2025-05-20T03:15:39.000000Z'
-    },
-    {
-        id: '2f0bdd81-a5e1-4a5c-9fff-f6e8add7d9af',
-        name: 'PHP',
-        created_at: '2025-05-20T03:15:39.000000Z',
-        updated_at: '2025-05-20T03:15:39.000000Z'
-    },
-    {
-        id: '46c0ec3c-bad7-4e6b-8830-bd3790f56621',
-        name: 'Vue.js',
-        created_at: '2025-05-20T03:15:39.000000Z',
-        updated_at: '2025-05-20T03:15:39.000000Z'
-    },
-    {
-        id: '6b9c047d-d349-4837-868d-e93adce9ffad',
-        name: 'Laravel',
-        created_at: '2025-05-20T03:15:39.000000Z',
-        updated_at: '2025-05-20T03:15:39.000000Z'
-    },
-    {
-        id: '7367354b-fc00-4ac7-96bd-dd9e2324458d',
-        name: 'Node.js',
-        created_at: '2025-05-20T03:15:39.000000Z',
-        updated_at: '2025-05-20T03:15:39.000000Z'
     }
 ]
 

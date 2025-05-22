@@ -1,7 +1,7 @@
 import { path } from '~/constants'
 import { useGetCourses, useQueryConfig } from '~/hooks'
 
-import { CourseItem, CourseSkeleton, EmptyState, Filter, Sort } from '~/components/pages'
+import { CourseItem, CourseSkeleton, EmptyState, Sort } from '~/components/pages'
 import { Pagination } from '~/components/pagination'
 
 const HomePage = () => {
@@ -19,14 +19,11 @@ const HomePage = () => {
 
     return (
         <div className='mt-1 grid grid-cols-1 gap-1 sm:gap-4 md:mt-2 md:grid-cols-5'>
-            <div className='order-1 md:order-none md:col-span-1'>
-                <Filter queryConfig={queryConfig} />
-            </div>
-            <div className='order-2 md:col-span-4'>
+            <div className='md:col-span-5'>
                 <div className='flex justify-end'>
                     <Sort queryConfig={queryConfig} />
                 </div>
-                <div className='mt-2 grid grid-cols-2 gap-2 sm:mt-6 sm:gap-4 lg:grid-cols-3'>
+                <div className='mt-2 grid grid-cols-2 gap-2 sm:mt-6 sm:gap-4 lg:grid-cols-4'>
                     {loading ? (
                         <CourseSkeleton count={6} />
                     ) : courses.length === 0 ? (

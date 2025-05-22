@@ -3,10 +3,9 @@ import { Navigate, Outlet, useRoutes } from 'react-router-dom'
 import { path } from './constants'
 import { AppContext } from './contexts'
 import { AdminLayout, EmptyLayout, MainLayout } from './layouts'
-import CategoriesPage from './pages/categories'
+import CategoriesPage from './pages/admin-categories'
+import CoursePage from './pages/admin-courses'
 import CourseDetail from './pages/course-detail'
-import CoursePage from './pages/courses'
-import Dashboard from './pages/dashboard'
 import HomePage from './pages/home'
 import Login from './pages/login'
 import NotFound from './pages/not-found'
@@ -43,7 +42,6 @@ const useRouteElements = () => {
                 }
             ]
         },
-
         {
             path: '/',
             element: <PublicRoute />,
@@ -66,13 +64,16 @@ const useRouteElements = () => {
                 }
             ]
         },
-
         {
             path: '/admin',
             element: <ProtectedRoute />,
             children: [
                 {
-                    path: 'categories',
+                    index: true,
+                    element: <Navigate to={path.admin_categories} replace />
+                },
+                {
+                    path: path.admin_categories,
                     element: (
                         <AdminLayout>
                             <CategoriesPage />
@@ -80,24 +81,15 @@ const useRouteElements = () => {
                     )
                 },
                 {
-                    path: 'courses',
+                    path: path.admin_courses,
                     element: (
                         <AdminLayout>
                             <CoursePage />
                         </AdminLayout>
                     )
-                },
-                {
-                    index: true,
-                    element: (
-                        <AdminLayout>
-                            <Dashboard />
-                        </AdminLayout>
-                    )
                 }
             ]
         },
-
         {
             path: '*',
             element: (

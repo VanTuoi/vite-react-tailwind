@@ -1,6 +1,6 @@
 import { BookA, ChartBarStacked } from 'lucide-react'
 
-import { useContext, type ComponentProps } from 'react'
+import { type ComponentProps } from 'react'
 import {
     Sidebar,
     SidebarContent,
@@ -11,10 +11,9 @@ import {
     SidebarMenuItem
 } from '~/components/ui'
 import { path } from '~/constants'
-import { AppContext } from '~/contexts'
+import { User } from '../header/user'
 import { Logo } from '../logo'
 import { NavMain } from './nav-main'
-import { NavUser } from './nav-user'
 
 const data = {
     navMain: [
@@ -32,8 +31,6 @@ const data = {
 }
 
 export function AppSidebar({ ...props }: ComponentProps<typeof Sidebar>) {
-    const { profile } = useContext(AppContext)
-
     return (
         <Sidebar collapsible='offcanvas' {...props}>
             <SidebarHeader>
@@ -49,7 +46,7 @@ export function AppSidebar({ ...props }: ComponentProps<typeof Sidebar>) {
                 <NavMain items={data.navMain} />
             </SidebarContent>
             <SidebarFooter>
-                <NavUser user={profile} />
+                <User />
             </SidebarFooter>
         </Sidebar>
     )

@@ -1,7 +1,7 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 
 import { coursesApi } from '~/services'
-import type { Course, CourseFormData, Meta, ResponseData } from '~/types'
+import type { Course, Meta, ResponseData, TypeCourseSchema } from '~/types'
 import type { QueryConfig } from './use-query-config'
 
 export const useGetCourseById = (id?: string) => {
@@ -71,8 +71,8 @@ export const useCreateCourse = (onSuccessCallback?: () => void) => {
         mutate: createCourse,
         isPending: loading,
         error
-    } = useMutation<Course | null, ResponseData<null> | undefined, CourseFormData>({
-        mutationFn: async (courseData: CourseFormData): Promise<Course | null> => {
+    } = useMutation<Course | null, ResponseData<null> | undefined, TypeCourseSchema>({
+        mutationFn: async (courseData: TypeCourseSchema): Promise<Course | null> => {
             const res = await coursesApi('private').createCourse(courseData)
             return res.data.data
         },
@@ -98,8 +98,8 @@ export const useUpdateCourse = (onSuccessCallback?: () => void) => {
         mutate: updateCourse,
         isPending: loading,
         error
-    } = useMutation<void, ResponseData<null> | undefined, { id: string; courseData: CourseFormData }>({
-        mutationFn: async ({ id, courseData }: { id: string; courseData: CourseFormData }): Promise<void> => {
+    } = useMutation<void, ResponseData<null> | undefined, { id: string; courseData: TypeCourseSchema }>({
+        mutationFn: async ({ id, courseData }: { id: string; courseData: TypeCourseSchema }): Promise<void> => {
             await coursesApi('private').updateCourse(id, courseData)
         },
         onSuccess: () => {

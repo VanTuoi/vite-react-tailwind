@@ -1,5 +1,5 @@
 import type { QueryConfig } from '~/hooks'
-import type { Course, CourseFormData, ResponseData } from '~/types'
+import type { Course, ResponseData, TypeCourseSchema } from '~/types'
 import { apiSelector } from '~/utils'
 
 const URL = '/courses'
@@ -12,9 +12,9 @@ export const coursesApi = (type: 'public' | 'private' = 'public') => {
 
         getCourse: (id: string) => http.get<ResponseData<Course>>(`${URL}/${id}`),
 
-        createCourse: (course: CourseFormData) => http.post<ResponseData<Course>>(URL, course),
+        createCourse: (course: TypeCourseSchema) => http.post<ResponseData<Course>>(URL, course),
 
-        updateCourse: (id: string, course: CourseFormData) => http.put<ResponseData<Course>>(`${URL}/${id}`, course),
+        updateCourse: (id: string, course: TypeCourseSchema) => http.put<ResponseData<Course>>(`${URL}/${id}`, course),
 
         deleteCourse: (id: string) => http.delete<ResponseData<null>>(`${URL}/${id}`)
     }
