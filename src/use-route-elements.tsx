@@ -2,17 +2,19 @@ import { useContext } from 'react'
 import { Navigate, Outlet, useRoutes } from 'react-router-dom'
 import { path } from './constants'
 import { AppContext } from './contexts'
-import { EmptyLayout, MainLayout } from './layouts'
+import { AdminLayout, EmptyLayout, MainLayout } from './layouts'
 import CategoriesPage from './pages/categories'
+import CourseDetail from './pages/course-detail'
 import CoursePage from './pages/courses'
 import Dashboard from './pages/dashboard'
+import HomePage from './pages/home'
 import Login from './pages/login'
 import NotFound from './pages/not-found'
 import Register from './pages/register'
 
 function ProtectedRoute() {
     const { isAuthenticated, profile } = useContext(AppContext)
-    return isAuthenticated && profile?.roles.includes('admin') ? <Outlet /> : <Navigate to='/*' />
+    return isAuthenticated && profile?.roles.includes('admin') ? <Outlet /> : <Navigate to='/' />
 }
 
 function PublicRoute() {
@@ -23,6 +25,25 @@ function PublicRoute() {
 
 const useRouteElements = () => {
     const router = useRoutes([
+        {
+            path: '/',
+            element: (
+                <MainLayout>
+                    <Outlet />
+                </MainLayout>
+            ),
+            children: [
+                {
+                    index: true,
+                    element: <HomePage />
+                },
+                {
+                    path: path.coursesDetails,
+                    element: <CourseDetail />
+                }
+            ]
+        },
+
         {
             path: '/',
             element: <PublicRoute />,
@@ -45,36 +66,38 @@ const useRouteElements = () => {
                 }
             ]
         },
+
         {
-            path: '/',
+            path: '/admin',
             element: <ProtectedRoute />,
             children: [
                 {
-                    path: path.categories,
+                    path: 'categories',
                     element: (
-                        <MainLayout>
+                        <AdminLayout>
                             <CategoriesPage />
-                        </MainLayout>
+                        </AdminLayout>
                     )
                 },
                 {
-                    path: path.courses,
+                    path: 'courses',
                     element: (
-                        <MainLayout>
+                        <AdminLayout>
                             <CoursePage />
-                        </MainLayout>
+                        </AdminLayout>
                     )
                 },
                 {
                     index: true,
                     element: (
-                        <MainLayout>
+                        <AdminLayout>
                             <Dashboard />
-                        </MainLayout>
+                        </AdminLayout>
                     )
                 }
             ]
         },
+
         {
             path: '*',
             element: (

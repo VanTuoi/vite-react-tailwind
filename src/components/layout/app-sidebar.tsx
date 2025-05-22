@@ -10,6 +10,7 @@ import {
     SidebarMenuButton,
     SidebarMenuItem
 } from '~/components/ui'
+import { path } from '~/constants'
 import { AppContext } from '~/contexts'
 import { Logo } from '../logo'
 import { NavMain } from './nav-main'
@@ -19,17 +20,17 @@ const data = {
     navMain: [
         {
             title: 'Tổng quan',
-            url: '/',
+            url: path.categories,
             icon: LayoutDashboardIcon
         },
         {
             title: 'Danh mục',
-            url: '/categories',
+            url: path.categories,
             icon: ChartBarStacked
         },
         {
             title: 'Khoá học',
-            url: '/courses',
+            url: path.courses,
             icon: BookA
         }
     ]
