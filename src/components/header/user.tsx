@@ -1,6 +1,8 @@
-import { LogOutIcon, Settings, SunMoon, UserCircleIcon } from 'lucide-react'
+import { Languages, LogOutIcon, Settings, SunMoon, UserCircleIcon } from 'lucide-react'
 import { useContext } from 'react'
+import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router-dom'
+
 import {
     Avatar,
     AvatarFallback,
@@ -13,21 +15,24 @@ import {
     DropdownMenuSeparator,
     DropdownMenuTrigger
 } from '~/components/ui'
+
 import { path } from '~/constants'
 import { AppContext } from '~/contexts'
 import { Button } from '../ui'
+import LanguageSelector from './language-selector'
 import { ThemeToggle } from './theme-toggle'
 
 export const User = () => {
     const navigate = useNavigate()
     const { isAuthenticated, profile, resetProfile } = useContext(AppContext)
+    const { t } = useTranslation('home')
 
     const handleLogout = () => {
         resetProfile()
     }
 
     if (!isAuthenticated || !profile) {
-        return <Button onClick={() => navigate(path.login)}>Đăng nhập</Button>
+        return <Button onClick={() => navigate(path.login)}>{t('header.login')}</Button>
     }
 
     return (
@@ -61,24 +66,31 @@ export const User = () => {
                 <DropdownMenuGroup>
                     <DropdownMenuItem>
                         <UserCircleIcon className='mr-2 size-4' />
-                        Tài khoản
+                        {t('header.account')}
                     </DropdownMenuItem>
                     <DropdownMenuItem>
                         <Settings className='mr-2 size-4' />
-                        Cài đặt
+                        {t('header.settings')}
                     </DropdownMenuItem>
                     <DropdownMenuItem className='justify-between'>
-                        <div className='flex items-center gap-2'>
+                        <div className='flex items-center gap-4'>
                             <SunMoon className='size-4' />
-                            Chủ đề
+                            {t('header.theme')}
                         </div>
                         <ThemeToggle />
+                    </DropdownMenuItem>
+                    <DropdownMenuItem className='justify-between'>
+                        <div className='flex items-center gap-4'>
+                            <Languages className='size-4' />
+                            {t('header.language')}
+                        </div>
+                        <LanguageSelector />
                     </DropdownMenuItem>
                 </DropdownMenuGroup>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem onClick={handleLogout}>
                     <LogOutIcon className='mr-2 size-4' />
-                    Đăng xuất
+                    {t('header.logout')}
                 </DropdownMenuItem>
             </DropdownMenuContent>
         </DropdownMenu>

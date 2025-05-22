@@ -14,38 +14,9 @@ import { Button, Collapsible, CollapsibleContent, CollapsibleTrigger, Input } fr
 
 import { cn } from '~/lib/utils'
 
+import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router-dom'
 import { RatingFilter } from './rating-filter'
-
-const FormData = courseSchema
-    .pick({ price_min: true, price_max: true, rating: true })
-    .extend({
-        price_min: z.string().refine((val) => val === '' || Number(val) >= 0, {
-            message: 'Giá phải lớn hơn hoặc bằng 0'
-        }),
-        price_max: z.string().refine((val) => val === '' || Number(val) >= 0, {
-            message: 'Giá phải lớn hơn hoặc bằng 0'
-        })
-    })
-    .refine(
-        (data) => {
-            const { price_min, price_max } = data
-            const hasPriceMin = price_min !== ''
-            const hasPriceMax = price_max !== ''
-
-            if (hasPriceMin && hasPriceMax) {
-                return Number(price_max) >= Number(price_min)
-            }
-
-            return hasPriceMin || hasPriceMax
-        },
-        {
-            message: 'Giá không phù hợp (giá tối đa phải lớn hơn hoặc bằng giá tối thiểu)',
-            path: ['price_min']
-        }
-    )
-
-type FilterCourses = Pick<TypeCourseSchema, 'price_max' | 'price_min' | 'rating'>
 
 const initValueFilter = {
     price_min: '0',
@@ -58,6 +29,38 @@ interface Props {
 }
 
 export const Filter = ({ queryConfig }: Props) => {
+    const { t } = useTranslation('home')
+
+    const FormData = courseSchema
+        .pick({ price_min: true, price_max: true, rating: true })
+        .extend({
+            price_min: z.string().refine((val) => val === '' || Number(val) >= 0, {
+                message: t('filter.error_price_non_negative')
+            }),
+            price_max: z.string().refine((val) => val === '' || Number(val) >= 0, {
+                message: t('filter.error_price_non_negative')
+            })
+        })
+        .refine(
+            (data) => {
+                const { price_min, price_max } = data
+                const hasPriceMin = price_min !== ''
+                const hasPriceMax = price_max !== ''
+
+                if (hasPriceMin && hasPriceMax) {
+                    return Number(price_max) >= Number(price_min)
+                }
+
+                return hasPriceMin || hasPriceMax
+            },
+            {
+                message: t('filter.error_price_range'),
+                path: ['price_min']
+            }
+        )
+
+    type FilterCourses = Pick<TypeCourseSchema, 'price_max' | 'price_min' | 'rating'>
+
     const navigate = useNavigate()
 
     const { data: dataCategories = [] } = useGetCategories()
@@ -133,7 +136,7 @@ export const Filter = ({ queryConfig }: Props) => {
             <div className='block lg:hidden'>
                 <CollapsibleTrigger asChild>
                     <Button variant='outline' className='mb-2 w-full'>
-                        {isFilterOpen ? 'Ẩn bộ lọc' : 'Hiện bộ lọc'}
+                        {isFilterOpen ? t('filter.hide_filter') : t('filter.show_filter')}
                     </Button>
                 </CollapsibleTrigger>
             </div>
@@ -143,7 +146,7 @@ export const Filter = ({ queryConfig }: Props) => {
                     <div className='flex flex-col items-start gap-1'>
                         <Collapsible open={isOpen} onOpenChange={setIsOpen} className='w-full space-y-2'>
                             <div className='flex items-center justify-between space-x-4 rounded-md p-1'>
-                                <h4 className='text-sm font-semibold uppercase'>Danh mục</h4>
+                                <h4 className='text-sm font-semibold uppercase'>{t('filter.categories')}</h4>
                                 <CollapsibleTrigger asChild>
                                     <Button variant='ghost' size='sm'>
                                         {isOpen ? <ChevronsDownUp /> : <ChevronsUpDown />}
@@ -152,35 +155,38 @@ export const Filter = ({ queryConfig }: Props) => {
                             </div>
 
                             {!isOpen && (
-                                <div className='cursor-pointer px-2 py-1 font-mono text-sm font-semibold text-primary'>
-                                    {currentCategory || 'Tất cả'}
+                                <div
+                                    className='cursor-pointer px-2 py-1 font-mono text-sm font-semibold text-pri
+                                mary'
+                                >
+                                    {currentCategory || t('filter.all')}
                                 </div>
                             )}
 
                             <CollapsibleContent className='space-y-1 md:space-y-2'>
-                                {renderCategoryItem(undefined, 'Tất cả')}
+                                {renderCategoryItem(undefined, t('filter.all'))}
                                 {dataCategories.map((item) => renderCategoryItem(item.name))}
                             </CollapsibleContent>
                         </Collapsible>
                     </div>
 
                     <div className='flex flex-col items-start gap-2'>
-                        <p>Khoảng giá</p>
+                        <p className='text-sm'>{t('filter.price')}</p>
                         <form onSubmit={onSubmit} noValidate>
                             <div className='flex w-full flex-col items-center gap-2 sm:flex-row'>
                                 <Input
                                     {...register('price_min')}
                                     type='number'
                                     className='w-full border-gray-400 sm:h-[30px] md:w-[85px]'
-                                    placeholder='Từ'
+                                    placeholder={t('filter.price_from')}
                                 />
                                 <span className='hidden sm:inline'>{'-'}</span>
-                                <span className='inline sm:hidden'>{'đến'}</span>
+                                <span className='inline sm:hidden'>{t('filter.price_to_mobile')}</span>
                                 <Input
                                     {...register('price_max')}
                                     type='number'
                                     className='w-full border-gray-400 sm:h-[30px] md:w-[85px]'
-                                    placeholder='Đến'
+                                    placeholder={t('filter.price_to')}
                                 />
                             </div>
 
@@ -191,7 +197,7 @@ export const Filter = ({ queryConfig }: Props) => {
                             )}
 
                             <div className='mt-3'>
-                                <p className='mb-1 text-sm'>Đánh giá tối thiểu</p>
+                                <p className='mb-1 text-sm'>{t('filter.start')}</p>
                                 <RatingFilter
                                     value={selectedRating}
                                     onChange={(value) => setValue('rating', value.toString())}
@@ -199,7 +205,7 @@ export const Filter = ({ queryConfig }: Props) => {
                             </div>
 
                             <Button disabled={!isValid} type='submit' className='mt-2 w-full'>
-                                Áp dụng
+                                {t('filter.submit')}
                             </Button>
                             <Button
                                 type='button'
@@ -207,7 +213,7 @@ export const Filter = ({ queryConfig }: Props) => {
                                 className='mt-2 w-full text-red-500'
                                 variant='ghost'
                             >
-                                Đặt lại
+                                {t('filter.reset')}
                             </Button>
                         </form>
                     </div>

@@ -1,8 +1,9 @@
 import { ChevronLeft, ChevronRight } from 'lucide-react'
+import { useTranslation } from 'react-i18next'
+import { useNavigate } from 'react-router-dom'
 
 import { Button, Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '~/components/ui'
 
-import { useNavigate } from 'react-router-dom'
 import type { QueryConfig } from '~/hooks'
 import { cn } from '~/lib/utils'
 import { createSearchString } from '~/utils'
@@ -18,6 +19,7 @@ const RANGE = 1
 export const Pagination = ({ path = '/', queryConfig, pageSize = 1 }: Props) => {
     const navigate = useNavigate()
     const page = Number(queryConfig.page)
+    const { t } = useTranslation('home')
 
     const renderPagination = () => {
         let dotAfter = false
@@ -96,13 +98,13 @@ export const Pagination = ({ path = '/', queryConfig, pageSize = 1 }: Props) => 
             <div className='flex items-center'>
                 <Select value={queryConfig.limit || '10'} onValueChange={handleLimitChange}>
                     <SelectTrigger className='w-[65px] bg-background'>
-                        <SelectValue placeholder='Số lượng' />
+                        <SelectValue placeholder={t('pagination.limit_placeholder')} />
                     </SelectTrigger>
                     <SelectContent className='w-[55px] bg-background text-foreground'>
-                        <SelectItem value='2'>2</SelectItem>
-                        <SelectItem value='5'>5</SelectItem>
-                        <SelectItem value='10'>10</SelectItem>
-                        <SelectItem value='20'>20</SelectItem>
+                        <SelectItem value='2'>{t('pagination.limit_values.2')}</SelectItem>
+                        <SelectItem value='5'>{t('pagination.limit_values.5')}</SelectItem>
+                        <SelectItem value='10'>{t('pagination.limit_values.10')}</SelectItem>
+                        <SelectItem value='20'>{t('pagination.limit_values.20')}</SelectItem>
                     </SelectContent>
                 </Select>
             </div>
@@ -111,7 +113,7 @@ export const Pagination = ({ path = '/', queryConfig, pageSize = 1 }: Props) => 
                 {page === 1 ? (
                     <Button disabled variant='ghost' className='text-foreground-muted'>
                         <ChevronLeft className='sm:hidden' />
-                        <span className='hidden sm:inline'>Trang trước</span>
+                        <span className='hidden sm:inline'>{t('pagination.previous')}</span>
                     </Button>
                 ) : (
                     <Button
@@ -120,7 +122,7 @@ export const Pagination = ({ path = '/', queryConfig, pageSize = 1 }: Props) => 
                         className='text-primary hover:bg-primary/10'
                     >
                         <ChevronLeft className='sm:hidden' />
-                        <span className='hidden sm:inline'>Trang trước</span>
+                        <span className='hidden sm:inline'>{t('pagination.previous')}</span>
                     </Button>
                 )}
 
@@ -129,7 +131,7 @@ export const Pagination = ({ path = '/', queryConfig, pageSize = 1 }: Props) => 
                 {page === pageSize ? (
                     <Button disabled variant='ghost' className='text-foreground-muted'>
                         <ChevronRight className='sm:hidden' />
-                        <span className='hidden sm:inline'>Trang kế</span>
+                        <span className='hidden sm:inline'>{t('pagination.next')}</span>
                     </Button>
                 ) : (
                     <Button
@@ -138,7 +140,7 @@ export const Pagination = ({ path = '/', queryConfig, pageSize = 1 }: Props) => 
                         className='text-primary hover:bg-primary/10'
                     >
                         <ChevronRight className='sm:hidden' />
-                        <span className='hidden sm:inline'>Trang kế</span>
+                        <span className='hidden sm:inline'>{t('pagination.next')}</span>
                     </Button>
                 )}
             </div>

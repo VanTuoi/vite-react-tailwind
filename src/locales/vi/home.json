@@ -1,0 +1,59 @@
+{
+  "header": {
+    "search": {
+      "placeholder": "Nhập tên hoặc mã khoá học...",
+      "button": "Tìm kiếm"
+    },
+    "login": "Đăng nhập",
+    "logout": "Đăng xuất",
+    "account": "Tài khoản",
+    "settings": "Cài đặt",
+    "theme": "Chủ đề",
+    "language": "Ngôn ngữ"
+  },
+  "pagination": {
+    "previous": "Trang trước",
+    "next": "Trang kế",
+    "limit_placeholder": "Số lượng",
+    "limit_values": {
+      "2": "2",
+      "5": "5",
+      "10": "10",
+      "20": "20"
+    }
+  },
+  "filter": {
+    "categories": "Tất cả danh mục",
+    "all": "Tất cả",
+    "price": "Khoảng giá",
+    "start": "Đánh giá tối thiểu",
+    "submit": "Áp dụng",
+    "reset": "Đặt lại",
+    "hide_filter": "Ẩn bộ lọc",
+    "show_filter": "Hiện bộ lọc",
+    "price_from": "Từ",
+    "price_to": "Đến",
+    "price_to_mobile": "đến",
+    "error_price_non_negative": "Giá phải lớn hơn hoặc bằng 0",
+    "error_price_range": "Giá không phù hợp (giá tối đa phải lớn hơn hoặc bằng giá tối thiểu)"
+  },
+  "empty_state": {
+    "no_courses": "Không tìm thấy khoá học nào.",
+    "view_all": "Xem tất cả khóa học"
+  },
+  "sort": {
+    "sort_by": "Sắp xếp theo",
+    "field": "Trường sắp xếp",
+    "order": "Thứ tự",
+    "order_placeholder": "Thứ tự",
+    "asc": "Tăng dần",
+    "desc": "Giảm dần",
+    "name": "Tên",
+    "year": "Năm học",
+    "rating": "Đánh giá",
+    "created_at": "Mới nhất",
+    "view": "Lượt xem",
+    "sold": "Bán chạy",
+    "price": "Giá"
+  }
+}

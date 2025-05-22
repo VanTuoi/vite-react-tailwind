@@ -1,9 +1,9 @@
-import { path } from '~/constants'
-import { createSearchString } from '~/utils'
-
+import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router-dom'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '~/components/ui'
+import { path } from '~/constants'
 import type { QueryConfig } from '~/hooks'
+import { createSearchString } from '~/utils'
 
 interface Props {
     queryConfig: QueryConfig
@@ -11,15 +11,16 @@ interface Props {
 
 export const Sort = ({ queryConfig }: Props) => {
     const navigate = useNavigate()
+    const { t } = useTranslation('home')
 
     const sortOptions = [
-        { label: 'Tên', value: 'name' },
-        { label: 'Năm học', value: 'year' },
-        { label: 'Đánh giá', value: 'rating' },
-        { label: 'Mới nhất', value: 'created_at' },
-        { label: 'Lượt xem', value: 'view' },
-        { label: 'Bán chạy', value: 'sold' },
-        { label: 'Giá', value: 'price' }
+        { label: t('sort.name'), value: 'name' },
+        { label: t('sort.year'), value: 'year' },
+        { label: t('sort.rating'), value: 'rating' },
+        { label: t('sort.created_at'), value: 'created_at' },
+        { label: t('sort.view'), value: 'view' },
+        { label: t('sort.sold'), value: 'sold' },
+        { label: t('sort.price'), value: 'price' }
     ]
 
     const handleSortByChange = (sort_by: string) => {
@@ -45,10 +46,10 @@ export const Sort = ({ queryConfig }: Props) => {
     return (
         <div className='flex flex-wrap items-center gap-1 sm:gap-4'>
             <div className='flex items-center gap-2'>
-                <p>Sắp xếp theo:</p>
+                <p>{t('sort.sort_by')}:</p>
                 <Select value={queryConfig.sort_by || 'created_at'} onValueChange={handleSortByChange}>
                     <SelectTrigger className='w-[120px] bg-background'>
-                        <SelectValue placeholder='Trường sắp xếp' />
+                        <SelectValue placeholder={t('sort.field')} />
                     </SelectTrigger>
                     <SelectContent className='w-[120px] text-foreground'>
                         {sortOptions.map((option) => (
@@ -61,14 +62,14 @@ export const Sort = ({ queryConfig }: Props) => {
             </div>
 
             <div className='flex items-center gap-2'>
-                <p>Thứ tự:</p>
+                <p>{t('sort.order')}:</p>
                 <Select value={queryConfig.order || 'desc'} onValueChange={handleOrderChange}>
                     <SelectTrigger className='w-[120px] bg-background'>
-                        <SelectValue placeholder='Thứ tự' />
+                        <SelectValue placeholder={t('sort.order_placeholder')} />
                     </SelectTrigger>
                     <SelectContent className='w-[120px] text-foreground'>
-                        <SelectItem value='asc'>Tăng dần</SelectItem>
-                        <SelectItem value='desc'>Giảm dần</SelectItem>
+                        <SelectItem value='asc'>{t('sort.asc')}</SelectItem>
+                        <SelectItem value='desc'>{t('sort.desc')}</SelectItem>
                     </SelectContent>
                 </Select>
             </div>
