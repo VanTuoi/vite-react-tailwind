@@ -1,3 +1,9 @@
 export const Footer = () => {
-    return <div className='py-10 text-center items-center'>@eleaning</div>
+    const currentYear = new Date().getFullYear()
+
+    return (
+        <footer className='w-full bg-blue-400 p-2 dark:bg-gray-700'>
+            <p className='p-1 text-center text-lg font-semibold text-white'>&copy;{currentYear} Elearning</p>
+        </footer>
+    )
 }

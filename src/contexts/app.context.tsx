@@ -1,6 +1,6 @@
-import type { User } from '@/types/user.type'
-import { clearLS, getAccessTokenFromLS, getProfileFromLS } from '@/utils/auth'
 import { createContext, useState, type ReactNode } from 'react'
+import type { User } from '~/types'
+import { clearLS, getAccessTokenFromLS, getProfileFromLS } from '~/utils'
 
 interface AppContextInterface {
     isAuthenticated: boolean

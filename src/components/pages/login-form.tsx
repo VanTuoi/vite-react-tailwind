@@ -1,12 +1,12 @@
-import { path } from '@/constants/path'
-import { AppContext } from '@/contexts/app.context'
-import { useLogin } from '@/hooks/use-auth'
-import { userSchema, type TypeUserSchema } from '@/types/schema'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useContext, useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
 import { useNavigate } from 'react-router-dom'
+import { path } from '~/constants'
+import { AppContext } from '~/contexts'
+import { useLogin } from '~/hooks'
+import { userSchema, type TypeUserSchema } from '~/types'
 import { Button, Input, InputPassword, Label } from '../ui'
 
 const loginSchema = userSchema.pick({ email: true, password: true })
@@ -38,7 +38,7 @@ export const LoginForm = () => {
             setProfile(data.user)
             navigate(path.home)
         }
-    }, [data])
+    }, [data, setIsAuthenticated, setProfile, navigate])
 
     return (
         <form noValidate className='space-y-4' onSubmit={handleSubmit(handleLogin)}>

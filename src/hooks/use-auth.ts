@@ -1,10 +1,6 @@
-import { authApi } from '@/services/auth.services'
-import type { ResponseData } from '@/types/response'
-import type { TypeUserSchema } from '@/types/schema'
-import type { LoginData } from '@/types/user.type'
 import { useMutation } from '@tanstack/react-query'
-
-type LoginFormData = Pick<TypeUserSchema, 'email' | 'password'>
+import { authApi } from '~/services'
+import type { LoginData, ResponseData, TypeUserSchema, User } from '~/types'
 
 export const useLogin = (onSuccessCallback?: () => void) => {
     const {
@@ -12,7 +8,7 @@ export const useLogin = (onSuccessCallback?: () => void) => {
         mutate: login,
         isPending: loading,
         error
-    } = useMutation<LoginData, ResponseData<null> | undefined, LoginFormData>({
+    } = useMutation<LoginData, ResponseData<null> | undefined, Pick<TypeUserSchema, 'email' | 'password'>>({
         mutationFn: async (credentials) => {
             const { data } = await authApi('public').login(credentials)
             if (!data?.data?.user) throw new Error('Login failed: user data not found')
@@ -27,4 +23,46 @@ export const useLogin = (onSuccessCallback?: () => void) => {
     })
 
     return { data, login, loading, error }
+}
+
+export const useRegister = (onSuccessCallback?: () => void) => {
+    const {
+        mutate: register,
+        isPending: loading,
+        error
+    } = useMutation<User | null, ResponseData<null> | undefined, Pick<TypeUserSchema, 'name' | 'email' | 'password'>>({
+        mutationFn: async (userData: Pick<TypeUserSchema, 'name' | 'email' | 'password'>): Promise<User | null> => {
+            const { data } = await authApi('public').register(userData)
+            return data.data
+        },
+        onSuccess: (data) => {
+            if (data) {
+                onSuccessCallback?.()
+            }
+        }
+    })
+
+    return {
+        register,
+        loading,
+        error
+    }
+}
+
+export const useLogout = (onSuccessCallback?: () => void) => {
+    const {
+        data,
+        mutate: logout,
+        isPending: loading,
+        error
+    } = useMutation<void, ResponseData<null> | undefined, void>({
+        mutationFn: async () => {
+            await authApi('private').logout()
+        },
+        onSuccess: () => {
+            onSuccessCallback?.()
+        }
+    })
+
+    return { data, logout, loading, error }
 }

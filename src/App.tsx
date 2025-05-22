@@ -18,7 +18,7 @@ const App = () => {
     return (
         <div>
             {routeElements}
-            <Toaster position='bottom-left' />
+            <Toaster position='bottom-right' />
         </div>
     )
 }

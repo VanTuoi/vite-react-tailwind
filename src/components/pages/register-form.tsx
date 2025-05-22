@@ -1,9 +1,12 @@
-import { userSchema, type TypeUserSchema } from '@/types/schema'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { useEffect } from 'react'
 import { useForm } from 'react-hook-form'
+import toast from 'react-hot-toast'
+import { useNavigate } from 'react-router-dom'
 import { z } from 'zod'
-import { Button, Input, Label } from '../ui'
-import { InputPassword } from '../ui/input-password'
+import { useRegister } from '~/hooks'
+import { userSchema, type TypeUserSchema } from '~/types'
+import { Button, Input, InputPassword, Label } from '../ui'
 
 const registerSchema = userSchema
     .pick({ email: true, password: true, name: true })
@@ -22,9 +25,22 @@ type TypeRegisterSchema = Pick<TypeUserSchema, 'email' | 'password' | 'name'> & 
 }
 
 export const RegisterForm = () => {
+    const navigate = useNavigate()
+
+    const {
+        loading,
+        error,
+        register: handleRegister
+    } = useRegister(() => {
+        navigate('/login')
+        toast.success('Đã tạo tài khoản thành công')
+    })
+
     const {
         register,
         handleSubmit,
+        setError,
+        clearErrors,
         formState: { errors, isValid, isSubmitted }
     } = useForm<TypeRegisterSchema>({
         resolver: zodResolver(registerSchema),
@@ -37,8 +53,27 @@ export const RegisterForm = () => {
         mode: 'onSubmit'
     })
 
+    useEffect(() => {
+        if (error?.errors) {
+            Object.entries(error.errors).forEach(([field, messages]) => {
+                messages.forEach((message) => {
+                    setError(field as keyof TypeUserSchema, {
+                        type: 'server',
+                        message
+                    })
+                })
+            })
+        } else {
+            clearErrors()
+        }
+    }, [error, setError, clearErrors])
+
+    const onSubmit = (data: TypeUserSchema) => {
+        handleRegister(data)
+    }
+
     return (
-        <form noValidate className='space-y-4' onSubmit={handleSubmit(() => {})}>
+        <form noValidate className='space-y-4' onSubmit={handleSubmit(onSubmit)}>
             <div className='flex flex-col items-start gap-1'>
                 <Label form='name'>Tên</Label>
                 <Input

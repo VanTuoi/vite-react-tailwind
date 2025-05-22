@@ -1,24 +1,16 @@
-import forms from '@tailwindcss/forms'
-import animate from 'tailwindcss-animate'
-
-import type { Config } from 'tailwindcss'
+import { Config } from 'tailwindcss'
 
 const config: Config = {
-    content: ['./src/**/*.{js,ts,jsx,tsx}', './components/**/*.{js,ts,jsx,tsx}'],
+    content: ['./src/**/*.{js,ts,jsx,tsx,css}', './index.css'],
     theme: {
         extend: {
-            container: {
-                center: true,
-                padding: '1rem',
-                screens: {
-                    DEFAULT: '100%',
-                    xl: '1180px'
-                }
-            },
-            colors: {}
+            colors: {},
+            borderRadius: {
+                DEFAULT: 'var(--radius)'
+            }
         }
     },
-    plugins: [forms, animate]
+    plugins: []
 }
 
 export default config

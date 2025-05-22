@@ -1,13 +1,13 @@
-import { Footer } from '@/components/footer'
-import { Header } from '@/components/header/header'
-import type { ReactNode } from 'react'
+import { AppSidebar, SidebarProvider, SidebarTrigger } from '~/components/ui'
 
-export const MainLayout = ({ children }: { children: ReactNode }) => {
+export function MainLayout({ children }: { children: React.ReactNode }) {
     return (
-        <div className='flex flex-col justify-center items-center'>
-            <Header />
-            <main className='h-[500px]'>{children}</main>
-            <Footer />
-        </div>
+        <SidebarProvider>
+            <AppSidebar />
+            <main className='w-full p-1 sm:p-2 bg-gray-50 text-foreground dark:bg-gray-900 dark:text-foreground'>
+                <SidebarTrigger className='size-10' />
+                {children}
+            </main>
+        </SidebarProvider>
     )
 }

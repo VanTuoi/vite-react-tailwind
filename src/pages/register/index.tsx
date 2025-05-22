@@ -1,8 +1,8 @@
-import { Logo } from '@/components/logo'
-import { RegisterForm } from '@/components/pages/register-form'
-import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui'
-import { path } from '@/constants/path'
 import { Link } from 'react-router-dom'
+import { Logo } from '~/components/logo'
+import { RegisterForm } from '~/components/pages'
+import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '~/components/ui'
+import { path } from '~/constants'
 
 const Register = () => {
     return (
@@ -15,7 +15,7 @@ const Register = () => {
                 <CardContent>
                     <RegisterForm />
                 </CardContent>
-                <CardFooter className='flex flex-row justify-end items-center gap-1'>
+                <CardFooter className='flex flex-row justify-center items-center gap-1'>
                     <p className='text-sm'>Bạn đã có tài khoản ?</p>
                     <Link to={path.login} className='text-sm font-bold'>
                         Đăng nhập ngay

@@ -1,10 +1,12 @@
-import type { ResponseData } from '@/types/response'
-import type { LoginData } from '@/types/user.type'
-import axios from 'axios'
-import { getAccessTokenFromLS, setAccessTokenToLS, setProfileToLS } from './auth'
+import axios, { AxiosError } from 'axios'
+import toast from 'react-hot-toast'
+import { HttpStatusCode } from '~/constants'
+import applyMockAdapter from '~/mock'
+import type { LoginData, ResponseData } from '~/types'
+import { clearLS, getAccessTokenFromLS, setAccessTokenToLS, setProfileToLS } from './auth'
 
 const publicApi = axios.create({
-    baseURL: 'http://localhost:8000/api',
+    baseURL: import.meta.env.VITE_BACKEND_URL,
     timeout: 20000,
     headers: {
         'Content-Type': 'application/json'
@@ -13,7 +15,7 @@ const publicApi = axios.create({
 })
 
 const privateApi = axios.create({
-    baseURL: 'http://localhost:8000/api',
+    baseURL: import.meta.env.VITE_BACKEND_URL,
     timeout: 20000,
     headers: {
         'Content-Type': 'application/json'
@@ -41,10 +43,50 @@ publicApi.interceptors.response.use(
             setAccessTokenToLS(data.data.accessToken)
             setProfileToLS(data.data.user)
         }
+
         return response
     },
-    (error) => Promise.reject(error)
+    (error: AxiosError) => {
+        if (
+            ![HttpStatusCode.UnprocessableEntity, HttpStatusCode.Unauthorized].includes(
+                error.response?.status as number
+            )
+        ) {
+            const data: any | undefined = error.response?.data
+            const message = data?.message || error.message
+            toast.error(message)
+        }
+        return Promise.reject(error.response?.data)
+    }
 )
+
+privateApi.interceptors.response.use(
+    (response) => {
+        const { url } = response.config
+        if (url === '/logout') {
+            clearLS()
+        }
+
+        return response
+    },
+    (error: AxiosError) => {
+        if (
+            ![HttpStatusCode.UnprocessableEntity, HttpStatusCode.Unauthorized].includes(
+                error.response?.status as number
+            )
+        ) {
+            const data: any | undefined = error.response?.data
+            const message = data?.message || error.message
+            toast.error(message)
+        }
+        return Promise.reject(error.response?.data)
+    }
+)
+
+if (import.meta.env.VITE_USE_MOCK_API === 'true') {
+    applyMockAdapter(publicApi)
+    applyMockAdapter(privateApi)
+}
 
 /**
  *

@@ -50,6 +50,7 @@ export default tseslint.config({
         ...reactHooks.configs.recommended.rules,
         'react/react-in-jsx-scope': 'off',
         'react/jsx-no-target-blank': 'warn',
+        'no-unused-vars': 'off',
         'prettier/prettier': [
             'warn',
             {

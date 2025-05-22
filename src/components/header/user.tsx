@@ -1,3 +1,5 @@
+import { useContext } from 'react'
+import { useNavigate } from 'react-router-dom'
 import {
     Avatar,
     AvatarFallback,
@@ -8,11 +10,9 @@ import {
     DropdownMenuLabel,
     DropdownMenuSeparator,
     DropdownMenuTrigger
-} from '@/components/ui'
-import { path } from '@/constants/path'
-import { AppContext } from '@/contexts/app.context'
-import { useContext } from 'react'
-import { useNavigate } from 'react-router-dom'
+} from '~/components/ui'
+import { path } from '~/constants'
+import { AppContext } from '~/contexts'
 import { Button } from '../ui'
 
 export const User = () => {
