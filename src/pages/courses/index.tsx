@@ -64,7 +64,7 @@ const CoursePage = () => {
             order: newOrder
         }
 
-        navigate(path.courses + createSearchString(newQuery))
+        navigate(path.admin_courses + createSearchString(newQuery))
     }
 
     const renderSortIcon = (column: string) => {
@@ -175,7 +175,7 @@ const CoursePage = () => {
                 isCreate={isCreate}
             />
             {courses.length !== 0 && (
-                <Pagination path={path.courses} queryConfig={queryConfig} pageSize={meta.total_pages} />
+                <Pagination path={path.admin_courses} queryConfig={queryConfig} pageSize={meta.total_pages} />
             )}
         </div>
     )

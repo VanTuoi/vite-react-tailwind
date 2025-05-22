@@ -118,7 +118,7 @@ export const RegisterForm = () => {
                     <p className='mt-1 text-sm text-red-500'>{errors.password_confirmation.message}</p>
                 )}
             </div>
-            <Button className='w-full' type='submit' disabled={!isValid && isSubmitted}>
+            <Button className='w-full' type='submit' disabled={(!isValid && isSubmitted) || loading}>
                 Đăng ký
             </Button>
         </form>

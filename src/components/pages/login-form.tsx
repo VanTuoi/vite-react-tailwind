@@ -36,7 +36,11 @@ export const LoginForm = () => {
             toast.success('Đăng nhập thành công')
             setIsAuthenticated(true)
             setProfile(data.user)
-            navigate(path.home)
+            if (data.user.roles.includes('admin')) {
+                navigate(path.admin_categories)
+            } else {
+                navigate(path.home)
+            }
         }
     }, [data, setIsAuthenticated, setProfile, navigate])
 

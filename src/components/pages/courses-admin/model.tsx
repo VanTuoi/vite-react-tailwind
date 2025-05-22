@@ -53,7 +53,7 @@ export const CourseModel = ({ isOpen, setIsOpen, course, isCreate }: CourseModel
     } = useForm<CourseFormData>({
         resolver: zodResolver(courseFormSchema),
         defaultValues: {},
-        mode: 'onChange'
+        mode: 'onSubmit'
     })
 
     const error = errorUpdate || errorCreate
@@ -101,7 +101,7 @@ export const CourseModel = ({ isOpen, setIsOpen, course, isCreate }: CourseModel
                 reset({
                     name: '',
                     course_code: '',
-                    credit: 0,
+                    credit: 1,
                     price: '',
                     year: new Date().getFullYear(),
                     description: '',
@@ -134,6 +134,8 @@ export const CourseModel = ({ isOpen, setIsOpen, course, isCreate }: CourseModel
             }
         }
     }, [isOpen, isCreate, course, reset])
+
+    console.log('errors', errors)
 
     return (
         <Dialog open={isOpen} onOpenChange={setIsOpen}>
@@ -369,9 +371,10 @@ export const CourseModel = ({ isOpen, setIsOpen, course, isCreate }: CourseModel
                         <Button
                             type='submit'
                             disabled={
-                                (!isValid && (isSubmitted || Object.keys(touchedFields).length > 0)) ||
+                                (!isValid && Object.keys(touchedFields).length > 0) ||
                                 isCreating ||
-                                isUpdating
+                                isUpdating ||
+                                isSubmitted
                             }
                         >
                             {isCreate

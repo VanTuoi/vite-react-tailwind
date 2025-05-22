@@ -1,4 +1,4 @@
-import { BookA, ChartBarStacked, LayoutDashboardIcon } from 'lucide-react'
+import { BookA, ChartBarStacked } from 'lucide-react'
 
 import { useContext, type ComponentProps } from 'react'
 import {
@@ -19,18 +19,13 @@ import { NavUser } from './nav-user'
 const data = {
     navMain: [
         {
-            title: 'Tổng quan',
-            url: path.categories,
-            icon: LayoutDashboardIcon
-        },
-        {
             title: 'Danh mục',
-            url: path.categories,
+            url: path.admin_categories,
             icon: ChartBarStacked
         },
         {
             title: 'Khoá học',
-            url: path.courses,
+            url: path.admin_courses,
             icon: BookA
         }
     ]
