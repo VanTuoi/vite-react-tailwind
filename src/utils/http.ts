@@ -83,10 +83,8 @@ privateApi.interceptors.response.use(
     }
 )
 
-if (import.meta.env.VITE_USE_MOCK_API === 'true') {
-    applyMockAdapter(publicApi)
-    applyMockAdapter(privateApi)
-}
+applyMockAdapter(publicApi)
+applyMockAdapter(privateApi)
 
 /**
  *
