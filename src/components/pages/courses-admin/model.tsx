@@ -135,8 +135,6 @@ export const CourseModel = ({ isOpen, setIsOpen, course, isCreate }: CourseModel
         }
     }, [isOpen, isCreate, course, reset])
 
-    console.log('errors', errors)
-
     return (
         <Dialog open={isOpen} onOpenChange={setIsOpen}>
             <DialogContent className='max-h-[90vh] min-w-[64rem] overflow-y-auto bg-background text-foreground/90'>
